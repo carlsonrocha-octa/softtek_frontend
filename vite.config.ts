@@ -10,16 +10,11 @@ export default defineConfig({
       '@domain': path.resolve(__dirname, './src/domain'),
       '@data': path.resolve(__dirname, './src/data'),
       '@presentation': path.resolve(__dirname, './src/presentation'),
+      '@config': path.resolve(__dirname, './src/config'),
     },
   },
   server: {
     port: 3000,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:5000',
-        changeOrigin: true,
-      },
-    },
   },
 });
 

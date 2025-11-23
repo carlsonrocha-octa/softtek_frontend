@@ -1,6 +1,7 @@
 import { useCreateOrder } from '../../hooks/useCreateOrder';
 import { OrderForm } from '../../components/OrderForm/OrderForm';
 import { OrderResponseDisplay } from '../../components/OrderResponse/OrderResponse';
+import { Logo } from '../../components/Logo/Logo';
 import { CreateOrderRequest } from '@domain/models/Order';
 import { OrderRepository } from '@data/repositories/OrderRepository';
 import { OrderApiClient } from '@data/clients/OrderApiClient';
@@ -26,6 +27,7 @@ export const TestOrderPage = () => {
 
   return (
     <div className="test-order-page">
+      <Logo />
       <div className="page-container">
         <h1>Portal de Pedidos de Insumos</h1>
         <h2>Teste de Criação de Pedido</h2>

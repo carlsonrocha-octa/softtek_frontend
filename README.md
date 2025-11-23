@@ -77,11 +77,52 @@ npm run build
 npm run preview
 ```
 
-## 🔌 Configuração da API
+## 🔌 Configuração da API e Ambientes
 
-O projeto está configurado para se comunicar com o backend através de um proxy. O Vite está configurado para redirecionar requisições `/api/*` para `http://localhost:5000/api/*`.
+O projeto suporta diferentes ambientes através de variáveis de ambiente. A URL do backend é configurada automaticamente baseada no ambiente:
 
-**Importante**: Certifique-se de que o backend está rodando em `localhost:5000` antes de usar o frontend.
+### Ambientes Disponíveis
+
+- **DEV** (padrão): `https://localhost:44306/api`
+- **PROD**: `https://backend.softtek.com.br/api`
+
+### Configuração de Ambiente
+
+O ambiente é controlado pela variável `VITE_ENVIRONMENT` nos arquivos `.env`:
+
+**Para desenvolvimento** (`.env.development` ou `.env`):
+```env
+VITE_ENVIRONMENT=DEV
+```
+
+**Para produção** (`.env.production`):
+```env
+VITE_ENVIRONMENT=PROD
+```
+
+### Arquivos de Ambiente
+
+Crie os seguintes arquivos na raiz do projeto:
+
+**`.env.development`** (desenvolvimento):
+```env
+VITE_ENVIRONMENT=DEV
+```
+
+**`.env.production`** (produção):
+```env
+VITE_ENVIRONMENT=PROD
+```
+
+**Nota**: Se nenhuma variável for definida, o ambiente padrão é **DEV**.
+
+### Como Funciona
+
+A configuração de ambiente está centralizada em `src/config/environment.ts`. O `OrderApiClient` utiliza automaticamente a URL correta baseada no ambiente configurado.
+
+**Importante**: 
+- Para desenvolvimento, certifique-se de que o backend está rodando em `https://localhost:44306`
+- Para produção, o backend deve estar disponível em `https://backend.softtek.com.br`
 
 ## 📄 Rotas
 
@@ -106,7 +147,9 @@ Ao submeter o formulário:
 
 ```
 src/
-├── domain/              # Camada de domínio
+├── config/             # Configurações da aplicação
+│   └── environment.ts # Configuração de ambientes e URLs
+├── domain/             # Camada de domínio
 │   ├── models/         # Modelos e interfaces do domínio
 │   └── repositories/   # Interfaces de repositórios
 ├── data/               # Camada de dados
@@ -158,7 +201,9 @@ npm run lint
 
 - O projeto usa **Vite** como build tool (não Next.js, conforme mencionado no enunciado, mas React puro com Vite para simplicidade)
 - A porta padrão é 3000 (configurável no `vite.config.ts`)
-- O proxy está configurado para redirecionar `/api/*` para `http://localhost:5000/api/*`
+- A logo da empresa está configurada para aparecer no canto superior esquerdo da página principal
+  - Coloque o arquivo da logo em `public/images/softtek-logo.png`
+  - O componente `Logo` já está integrado na página de pedidos
 
 ## 🤝 Integração com Backend
 

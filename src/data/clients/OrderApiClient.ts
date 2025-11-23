@@ -1,5 +1,6 @@
 import { IOrderApiClient } from './IOrderApiClient';
 import { CreateOrderRequest, ApiResponse, OrderResponse } from '@domain/models/Order';
+import { getBackendApiUrl } from '@config/environment';
 import axios, { AxiosInstance, AxiosError } from 'axios';
 
 /**
@@ -9,9 +10,12 @@ import axios, { AxiosInstance, AxiosError } from 'axios';
 export class OrderApiClient implements IOrderApiClient {
   private readonly client: AxiosInstance;
 
-  constructor(baseURL: string = '/api') {
+  constructor(baseURL?: string) {
+    // Use provided baseURL or get from environment configuration
+    const apiBaseUrl = baseURL || getBackendApiUrl();
+    
     this.client = axios.create({
-      baseURL,
+      baseURL: apiBaseUrl,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -20,7 +24,8 @@ export class OrderApiClient implements IOrderApiClient {
   }
 
   /**
-   * Creates a new order by sending POST request to /api/orders
+   * Creates a new order by sending POST request to /orders
+   * Note: The baseURL already includes /api, so we only need /orders
    * @param request - The order creation request
    * @returns Promise with API response containing the created order
    */
