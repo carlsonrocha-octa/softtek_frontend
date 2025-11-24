@@ -9,7 +9,7 @@ export type Environment = 'DEV' | 'PROD';
  * Defaults to 'DEV' if not specified
  */
 export const getEnvironment = (): Environment => {
-  const env = import.meta.env.VITE_ENVIRONMENT?.toUpperCase();
+  const env = process.env.NEXT_PUBLIC_ENVIRONMENT?.toUpperCase();
   return env === 'PROD' ? 'PROD' : 'DEV';
 };
 
@@ -17,7 +17,7 @@ export const getEnvironment = (): Environment => {
  * Backend API base URLs for each environment
  */
 const BACKEND_URLS: Record<Environment, string> = {
-  DEV: 'https://localhost:44306/api',
+  DEV: 'https://localhost:7170/api',
   PROD: 'https://backend.softtek.com.br/api',
 };
 
